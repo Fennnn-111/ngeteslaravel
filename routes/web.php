@@ -1,30 +1,25 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MahasiswaController;
 
 Route::get('/', function () {
-    return view('beranda');
+    return view('pages.beranda');
 });
 
-Route::get('home', function () {
-    return view('home');
-});
-
-Route::get('/profil', function () {
-    return view('profil', [
-        'nama'  => 'Andi Ahmad Surya',
+Route::get('/about', function () {
+    return view('pages.about', [
+        'nama'  => 'Sendy Prayogo',
+        'kelas' => 'TSM-00',
         'nim'   => '0123456789',
-        'kelas' => 'TRM-00',
-        'prodi' => 'Teknologi Rekayasa Multimedia',
     ]);
 });
 
-Route::get('/profil2', function () {
-    return view('profil2', [
-        'nama'  => 'Ciko',
-        'nim'   => 'nim',
-        'kelas' => 'TRM-04',
-        'prodi' => 'Teknologi Rekayasa Multimedia',
-    ]);
-});
+Route::view('/contact', 'pages.contact');
 
+// satu controller bisa memiliki beberapa method (perintah)
+Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product/addProduct', [ProductController::class, 'addProduct']);
+Route::post('/product/store', [ProductController::class, 'store']);;
+Route::post('/product', [ProductController::class, 'store']);
